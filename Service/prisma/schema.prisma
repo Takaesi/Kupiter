@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//
+// ======== MODELS ========
+//
+
+model User {
+  id          Int       @id @default(autoincrement())
+  email       String    @unique
+  password    String
+  firstName   String
+  lastName    String
+  phone       String?
+  city        String?
+  createdAt   DateTime  @default(now())
+
+  ads         Ad[]      // объявления пользователя
+}
+
+model Ad {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String
+  price       Int
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // связи
+  ownerId     Int
+  owner       User      @relation(fields: [ownerId], references: [id])
+
+  categoryId  Int
+  category    Category  @relation(fields: [categoryId], references: [id])
+
+  images      Image[]
+}
+
+model Image {
+  id       Int    @id @default(autoincrement())
+  url      String
+
+  adId     Int
+  ad       Ad     @relation(fields: [adId], references: [id])
+}
+
+model Category {
+  id      Int     @id @default(autoincrement())
+  name    String  @unique
+
+  ads     Ad[]
+}
