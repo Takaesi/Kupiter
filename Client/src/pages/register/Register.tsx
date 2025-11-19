@@ -30,7 +30,7 @@ export const Register = () => {
 
             if (res.status === 200) {
                 setIsSuccess("Поздраляю. Вы зарегестрированы!")
-                localStorage.setItem("token", res.data.token)
+                localStorage.setItem("user", JSON.stringify(res.data))
                 navigate("/main")
             }
 

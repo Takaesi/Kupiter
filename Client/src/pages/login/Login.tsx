@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate } from "react-router"
+import { useNavigate, Link } from "react-router"
 import { api } from "../../api/axios"
 
 export const Login = () => {
@@ -53,6 +53,7 @@ export const Login = () => {
             <p className="ifError">{ifError}</p>
 
             <button className="btn">Отправить</button>
+            <Link to={"/register"}>Ещё нет аккаунта?</Link>
             <p className="ifSuccess">{ifSuccess}</p>
         </form>
     )
