@@ -1,10 +1,10 @@
 import jwt  from "jsonwebtoken";
 
 export const authMiddlewar = (req: any, res: any, next: any) => {
-    const authHeader = req.headers.Authorization
+    const authHeader = req.headers.authorization
 
     if (!authHeader) {
-        return res.status(401).jason({message: "Нет токена"})
+        return res.status(401).json({message: "Нет токена"})
     }
 
     const token = authHeader.split(" ")[1]

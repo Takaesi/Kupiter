@@ -1,0 +1,31 @@
+.adds-sidebar {
+    background-color: #2a2a2a;
+    position: sticky;
+    top: 0;
+    width: 260px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    border-right:1px solid #9a9a9a;
+    padding: 20px;
+    gap: 10px;
+
+}
+
+
+.adds-link {
+    text-decoration: none;
+    background-color: #9b4dff;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 14px 0px;
+    width: 100%;
+    text-align: center;
+    transition: 0,2s;
+}
+
+.adds-link:hover {
+     background-color: #b07aff;
+    transform: translateY(-2px);
+}
