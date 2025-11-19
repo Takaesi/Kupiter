@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate, Link } from "react-router"
 import { api } from "../../api/axios"
+import "./login.css"
 
 export const Login = () => {
     const navigate = useNavigate()
@@ -33,28 +34,33 @@ export const Login = () => {
     }
 
     return (
-        <form className="login-form" onSubmit={onSubmit}>
-            <input 
-            className="data"
-            placeholder="Email"
-            value={email}
-            required
-            onChange={(e) => setEmail(e.target.value)}
-            />
+        <div className="login-cont">
+            <form className="login-form" onSubmit={onSubmit}>
 
-            <input
-            className="data"
-            placeholder="Пароль"
-            value={password}
-            required
-            onChange={(e) => setPassword(e.target.value)}
-            />
+                <h1 className="login-title">Войти</h1>
 
-            <p className="ifError">{ifError}</p>
+                <input 
+                className="login-input"
+                placeholder="Email"
+                value={email}
+                required
+                onChange={(e) => setEmail(e.target.value)}
+                />
 
-            <button className="btn">Отправить</button>
-            <Link to={"/register"}>Ещё нет аккаунта?</Link>
-            <p className="ifSuccess">{ifSuccess}</p>
-        </form>
+                <input
+                className="login-input"
+                placeholder="Пароль"
+                value={password}
+                required
+                onChange={(e) => setPassword(e.target.value)}
+                />
+
+                <p className="ifError">{ifError}</p>
+                <button className="btn-send">Отправить</button>
+                <Link to={"/register"} className="register-link">Ещё нет аккаунта?</Link>
+                <p className="ifSuccess">{ifSuccess}</p>
+
+            </form>
+        </div>
     )
 }

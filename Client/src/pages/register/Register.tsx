@@ -2,6 +2,7 @@ import { useState } from "react"
 import { api } from "../../api/axios"
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
+import "./register.css"
 
 export const Register = () => {
     const [firstName, setFirstName] = useState("")
@@ -42,10 +43,11 @@ export const Register = () => {
     }
 
     return (
+        <div className="register-cont">
         <form className="register-form" onSubmit={onSubmit}>
-
+            <h1 className="register-title">Зарегестрироваться</h1>
             <input 
-            className="data"
+            className="register-input"
             placeholder="Имя"
             value={firstName}
             required
@@ -53,7 +55,7 @@ export const Register = () => {
             />
 
             <input
-            className="data"
+            className="register-input"
             placeholder="Фамилия"
             value={lastName}
             required
@@ -61,7 +63,7 @@ export const Register = () => {
             />
 
             <input
-            className="data"
+            className="register-input"
             placeholder="Номер телефона"
             value={phone}
             required
@@ -69,7 +71,7 @@ export const Register = () => {
             />
 
             <input
-            className="data"
+            className="register-input"
             placeholder="Почта"
             value={email}
             required
@@ -77,7 +79,7 @@ export const Register = () => {
             />
 
             <input
-            className="data"
+            className="register-input"
             placeholder="Пароль"
             value={password}
             required
@@ -85,15 +87,16 @@ export const Register = () => {
             />
 
             <input
-            className="data"
+            className="register-input"
             placeholder="Город"
             value={city}
             required
             onChange={(e) => setCity(e.target.value.trim())}
             />
-            <button className="btn">Отправить</button>
+            <button className="register-btn-send">Отправить</button>
             <p>{isSuccess}</p>
-            <Link to={"/login"} className="ifAccaunt">Уже есть аккаунт?</Link>
+            <Link to={"/login"} className="login-link">Уже есть аккаунт?</Link>
         </form>
+        </div>
     )
 }

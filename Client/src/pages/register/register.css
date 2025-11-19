@@ -1,0 +1,47 @@
+.register-cont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.register-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.register-input {
+    padding: 14px 12px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 1px solid #9b4dff;
+    color: white;
+    width: 350px;
+}
+
+.register-title {
+    color: white;
+    background-color: transparent;
+}
+
+.register-btn-send,
+.login-link {
+    background-color: #9b4dff;
+    color: white;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    text-decoration: none;
+    padding: 12px 12px;
+    transition: 0,2s;
+}
+
+
+.register-btn-send:hover,
+.login-link:hover {
+    background-color: #b07aff;
+    transform: translateY(-2px);
+}

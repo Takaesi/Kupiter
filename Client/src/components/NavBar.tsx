@@ -1,5 +1,6 @@
 import {Link, useNavigate} from "react-router-dom"
 import { useState, useEffect} from "react"
+import "./navbar.css"
 
 export const NavBar = () => {
     const navigate = useNavigate()
@@ -51,16 +52,16 @@ export const NavBar = () => {
             <div className="nav-right">
                 {!user && (
                     <>
-                    <Link to={"/register"} className="register-btn">Регистрация</Link>
-                    <Link to={"/login"} className="login-btn">Логин</Link>
+                    <Link to={"/registe"} className="link">Регистрация</Link>
+                    <Link to={"/login"} className="link">Логин</Link>
                     </>
                 )}
 
                 {user && (
                     <>
-                    <button onClick={ifFavClick} className="favorite-btn">Понравившиеся</button>
-                    <button onClick={ifAddsClick} className="myAds-btn">Мои объявления</button>
-                    <button onClick={ifProfileClick} className="profile-btn">Профиль</button>
+                    <button onClick={ifFavClick} className="btn">Понравившиеся</button>
+                    <button onClick={ifAddsClick} className="btn">Мои объявления</button>
+                    <button onClick={ifProfileClick} className="btn">Профиль</button>
                     </>
                 )}
             </div>
