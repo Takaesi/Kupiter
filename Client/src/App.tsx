@@ -6,7 +6,8 @@ import { PrivateLayout } from './layouts/PrivateLayout'
 import { PublicLayout } from './layouts/PublicLayout'
 import { Main } from './pages/main/Main'
 import { ProtectedRoute } from './components/protectedRoute/ProtectedRoute'
-import { Adds } from './pages/adds/Adds'
+import { Ads } from './pages/ads/Ads'
+import { CreateAd } from './pages/createAd/CreateAd'
 
 function App() {
 
@@ -24,12 +25,20 @@ function App() {
         <Route path="/main" element={<Main/>} />
 
         <Route
-        path='/adds'
+        path='/ads'
         element={
           <ProtectedRoute>
-            <Adds/>
+            <Ads/>
           </ProtectedRoute>
         } />
+
+        <Route
+        path='/createAd'
+        element={
+          <ProtectedRoute>
+            <CreateAd/>
+          </ProtectedRoute>
+        }/>
 
       </Route>
 

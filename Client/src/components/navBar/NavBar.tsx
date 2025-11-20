@@ -32,7 +32,7 @@ export const NavBar = () => {
             navigate("/login")
             return
         }
-        navigate("/adds")
+        navigate("/ads")
     }
 
     const ifProfileClick = () => {
