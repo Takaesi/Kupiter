@@ -87,7 +87,8 @@
 
 
 .btn-next,
-.btn-prev {
+.btn-prev,
+.create-btn {   
     background-color: #9b4dff;
     border: none;
     padding: 10px 18px;
@@ -99,7 +100,8 @@
 }
 
 .btn-next:hover,
-.btn-prev:hover {
+.btn-prev:hover,
+.create-btn {
     background-color: #b066ff;
 }
 
@@ -125,3 +127,4 @@
 .ad-city {
     align-self: flex-start;
 }
+

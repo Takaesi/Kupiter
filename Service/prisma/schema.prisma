@@ -31,14 +31,13 @@ model Ad {
   price       Int
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+  city        String
 
-  // связи
+
+// связи
   ownerId     Int
   owner       User      @relation(fields: [ownerId], references: [id])
-
-  categoryId  Int
-  category    Category  @relation(fields: [categoryId], references: [id])
-
+  category    String
   images      Image[]
 }
 
@@ -48,11 +47,4 @@ model Image {
 
   adId     Int
   ad       Ad     @relation(fields: [adId], references: [id])
-}
-
-model Category {
-  id      Int     @id @default(autoincrement())
-  name    String  @unique
-
-  ads     Ad[]
 }

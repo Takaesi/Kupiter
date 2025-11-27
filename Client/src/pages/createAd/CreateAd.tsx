@@ -1,5 +1,9 @@
 import {useState} from "react"
 import "./createAd.css"
+import { api } from "../../api/axios"
+import { useNavigate } from "react-router"
+import { AxiosError } from "axios"
+
 
 export const CreateAd = () => {
     const [title, setTitle] = useState("")
@@ -9,6 +13,8 @@ export const CreateAd = () => {
     const [city, setCity] = useState("")
     const [images, setImages] = useState<string[]>(["", "", ""])
     const [activeImageIndex, setActiveImageIndex] = useState(0)
+
+    const navigate = useNavigate()
 
     const handleAdImage = (index: number, value: string) => {
         const updated = [...images];
@@ -29,9 +35,34 @@ export const CreateAd = () => {
         )
     }
 
+    const  onSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        try {
+            const res = await api.post("/api/createAd", {
+                title,
+                description,
+                price,
+                category,
+                city,
+                images: images.filter((url) => url.trim() !== "")
+
+
+            } )
+            if (res.status === 201) {
+                prompt("Успешно")
+                navigate("/ads")
+            }
+
+        } catch (e) {
+            const err = e as AxiosError
+            prompt("Ошибка, попробуйте еще раз")
+            console.log(err.response?.data)
+        }
+    }
+
     return (
         <div className="ad-handler">
-        <form className="create-ad-form">
+        <form className="create-ad-form" onSubmit={onSubmit}>
             <input 
                 className="create-input"
                 placeholder="название"
@@ -88,6 +119,8 @@ export const CreateAd = () => {
                     onChange={(e) => handleAdImage(index, e.target.value)}
                 />
             ))}
+
+            <button className="create-btn">Отправить</button>
         </form>
         <div className="preview-wrapper">
             <div className="preview">
