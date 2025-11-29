@@ -12,7 +12,7 @@ export const Ads = () => {
 
     useEffect( () => {
         const getAds = async () => {
-            const response= await api.get("/api/getAllAds")
+            const response= await api.get("/api/getAllAdsUser")
             setAds(response.data)
             setActiveImageIndex(response.data.map(() => 0))
             console.log(response.data)
@@ -43,13 +43,12 @@ export const Ads = () => {
 
     const deliteBtn = async (id: number) => {
         try {
-            await api.delete("api/deleteAd", {data: {id}})
+            await api.delete(`api/deleteAd/${Number(id)}`)
             setAds(prev => prev.filter(ad => ad.id !== id))
 
         }catch(err){
             console.log("Ошибка запроса или обновления", err)
         }
-        
     }
 
     const editeBtn = async (id: number) => {

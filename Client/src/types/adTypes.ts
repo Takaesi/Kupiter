@@ -8,6 +8,15 @@ export type adType = {
     images: {url: string}[];
     crateAt: string;
     updatedAt: string;
-    category: string
+    category: string;
+    priceFrom: number;
+    priceTo: number;
+}
+
+export type adFilter ={
+    city?: string
+    category?: string
+    priceFrom?: number
+    priceTo?: number
 }
 

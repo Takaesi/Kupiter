@@ -91,7 +91,7 @@ export const Register = () => {
             placeholder="Город"
             value={city}
             required
-            onChange={(e) => setCity(e.target.value.trim())}
+            onChange={(e) => setCity(e.target.value.trim().toUpperCase())}
             />
             <button className="register-btn-send">Отправить</button>
             <p>{isSuccess}</p>

@@ -46,5 +46,5 @@ model Image {
   url      String
 
   adId     Int
-  ad       Ad     @relation(fields: [adId], references: [id])
+  ad       Ad     @relation(fields: [adId], references: [id], onDelete: Cascade)
 }

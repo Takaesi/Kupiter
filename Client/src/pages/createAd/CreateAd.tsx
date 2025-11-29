@@ -92,7 +92,7 @@ export const CreateAd = () => {
                 placeholder="город"
                 value={city}
                 required
-                onChange={(e) => setCity(e.target.value)}
+                onChange={(e) => setCity(e.target.value.trim().toUpperCase())}
             />
             
             <label className="create-label">Категория</label>

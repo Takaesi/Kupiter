@@ -1,5 +1,8 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./main.css"
+import { api } from "../../api/axios"
+import type { adFilter, adType } from "../../types/adTypes"
+
 
 export const Main = () => {
     
@@ -12,7 +15,26 @@ export const Main = () => {
     } catch {
         city = ""
     }
-     
+     const [activeImageIndex, setActiveImageIndex] = useState<number[]>([])
+
+    const nextImage = (adIndex: number) => {
+        setActiveImageIndex(prevIndexes => {
+            const updated = [...prevIndexes]
+            const ad = ads[adIndex]
+            updated[adIndex] = (updated[adIndex] + 1) % ad.images.length 
+            return updated
+        })
+        
+    }
+
+    const prevImage = (adIndex: number) => {
+        setActiveImageIndex(prevIndexes => {
+            const updated = [...prevIndexes]
+            const ad = ads[adIndex]
+            updated[adIndex] = (updated[adIndex] - 1 + ad.images.length) % ad.images.length
+            return updated
+        })
+    }
 
     const [filters, setFilters] = useState({
         city: city,
@@ -21,32 +43,54 @@ export const Main = () => {
         priceTo: ""
     })
 
-    const updateFliters = (key: string, value: string) => {
+    const updateFilters = (key: string, value: string) => {
         setFilters(prev => ({
             ...prev,
             [key]: value
         }))
     }
 
-    console.log(city)
+    const [ads, setAds] = useState<adType[]>([])
+
+    useEffect ( () => {
+        const getAds = async () => {
+            try {
+
+                const params: adFilter = { city: filters.city };
+                if (filters.category) params.category = filters.category;
+                if (filters.priceFrom) params.priceFrom = Number(filters.priceFrom);
+                if (filters.priceTo) params.priceTo = Number(filters.priceTo);
+                const res = await api.get("/api/getAllAds", {params})
+
+                setAds(res.data)
+                setActiveImageIndex(res.data.map(() => 0));
+            }catch(err){
+                console.log(err)
+            }
+        }
+
+        getAds()
+
+    }, [filters.city, filters.category, filters.priceFrom, filters.priceTo])
+
 
     return (
-        <>
+        <div className="main-handler">
         <div className="sidebar">
-            <div className="filter-group">
+            <form className="filter-group">
                 <label className="filter-label">Город: </label>
                 <input
                 className="filter-input"
                 placeholder="город:"
                 value={filters.city}
-                onChange={(e) => updateFliters("city", e.target.value)}
+                onChange={(e) => updateFilters("city", e.target.value.trim().toUpperCase())}
                 />
 
                 <label className="filter-label">Категория</label>
                 <select
                     className="filter-input"
                     value={filters.category}
-                    onChange={(e) => updateFliters("category", e.target.value)}
+                    onChange={(e) => updateFilters("category", e.target.value)}
                 >
                     <option value={""}>Все категории</option>
                     <option value={"phones"}>Телефоны</option>
@@ -59,7 +103,7 @@ export const Main = () => {
                     className="filter-input"
                     value={filters.priceFrom}
                     placeholder="цена от: "
-                    onChange={(e) => updateFliters("priceFrom", e.target.value)}
+                    onChange={(e) => updateFilters("priceFrom", e.target.value.trim())}
                 />
 
                 <label className="filter-label">Цена до: </label>
@@ -67,10 +111,36 @@ export const Main = () => {
                     className="filter-input"
                     value={filters.priceTo}
                     placeholder="цена до: "
-                    onChange={(e) => updateFliters("priceTo", e.target.value)}
-                />    
-            </div>
+                    onChange={(e) => updateFilters("priceTo", e.target.value.trim())}
+                />   
+            </form>
         </div>
-        </>
+        <div className="main-ads">
+            {ads.map((ad, index) => (
+                <div className="main-card" key={ad.id}>
+                    {ad.images.length > 0 && activeImageIndex[index] !== undefined? (
+                            <>
+                            <img
+                                className="main-img"
+                                alt="img"
+                                src={ad.images[activeImageIndex[index]]?.url || "https://avatars.mds.yandex.net/i?id=23f98141a8009ae09b4ce0c65a8fef161da19deb-5235366-images-thumbs&n=13"}
+                            />
+                            <div className="img-controllers">
+                                <button className="prev-image" onClick={() => prevImage(index)}>Предидущая</button>
+                                <button className="next-image" onClick={() => nextImage(index)}>Следующая</button>
+                            </div>
+                            </>
+                        ) : (
+                            <h1>Нет фото</h1>
+                        )}
+                        <h1 className="card-title">{ad.title}</h1>
+                        <p className="card-description">{ad.description}</p>
+                        <h3 className="card-city">{ad.city}</h3>
+                        <p className="card-price">{ad.price}</p>
+                </div>
+                
+            ))}
+        </div>
+        </div>
     )
 }
